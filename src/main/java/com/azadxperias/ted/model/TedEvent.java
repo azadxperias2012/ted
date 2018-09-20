@@ -1,5 +1,8 @@
 package com.azadxperias.ted.model;
 
+import com.azadxperias.ted.util.ConversionUtil;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -19,15 +22,26 @@ public class TedEvent {
     private String title;
     private String url;
     private String views;
-    @Transient
+
+    @Lob
+    @JsonIgnore
     private String ratings;
-    @Transient
+    @Lob
+    @JsonIgnore
     private String relatedTalks;
-    @Transient
+    @Lob
+    @JsonIgnore
     private String tags;
+
 
     @Transient
     private List<Rating> tedEventRatings;
+    @Transient
+    private List<RelatedTalk> relatedTedTalks;
+    @Transient
+    private List<String> tagsList;
+
+
 
     public Integer getId() {
         return id;
@@ -135,6 +149,7 @@ public class TedEvent {
     }
 
     public List<Rating> getTedEventRatings() {
+        this.tedEventRatings = ConversionUtil.convertToRatings(this.ratings);
         return tedEventRatings;
     }
 
@@ -156,5 +171,23 @@ public class TedEvent {
 
     public void setTags(String tags) {
         this.tags = tags;
+    }
+
+    public List<String> getTagsList() {
+        this.tagsList = ConversionUtil.convertToStringList(this.tags);
+        return tagsList;
+    }
+
+    public void setTagsList(List<String> tagsList) {
+        this.tagsList = tagsList;
+    }
+
+    public List<RelatedTalk> getRelatedTedTalks() {
+        this.relatedTedTalks = ConversionUtil.convertToRelatedTalks(this.relatedTalks);
+        return relatedTedTalks;
+    }
+
+    public void setRelatedTedTalks(List<RelatedTalk> relatedTedTalks) {
+        this.relatedTedTalks = relatedTedTalks;
     }
 }

@@ -22,9 +22,12 @@ public class Processor implements ItemProcessor<TedEvent, TedEvent> {
 //        String ratings = tedEvent.getRatings();
 //        List<Rating> ratingList = ConversionUtil.convert(ratings);
 //        tedEvent.setTedEventRatings(ratingList);
-        String views = tedEvent.getViews();
-        views = views.replaceAll("\",", "");
-        tedEvent.setViews(views);
+//        String views = tedEvent.getViews();
+//        views = views.replaceAll("\",", "");
+//        tedEvent.setViews(views);
+
+        tedEvent.getTags();
+
         return tedEvent;
     }
 }
