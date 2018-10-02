@@ -31,14 +31,16 @@ public class TedApplication implements CommandLineRunner {
         maps.put("time", new JobParameter(System.currentTimeMillis()));
         JobParameters parameters = new JobParameters(maps);
         JobExecution jobExecution = jobLauncher.run(job, parameters);
-        System.out.println("JobExecution: " + jobExecution.getStatus());
 
-        System.out.println("Batch is Running...");
-        while (jobExecution.isRunning()) {
-            System.out.println("...");
-        }
-		System.out.println(jobExecution.getStatus());
-		jobExecution.stop();
+        if (jobExecution != null) {
+			System.out.println("JobExecution: " + jobExecution.getStatus());
+			System.out.println("Batch is Running...");
+			while (jobExecution.isRunning()) {
+				System.out.println("...");
+			}
+			System.out.println(jobExecution.getStatus());
+			jobExecution.stop();
+		}
 	}
 }
 
