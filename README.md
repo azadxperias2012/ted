@@ -6,10 +6,6 @@ This project was generated with [Spring Initializer](https://start.spring.io/) w
 
 To run the application, execute:
 
-`./gradlew build && java -jar build/libs/ted-0.0.1-SNAPSHOT.jar`
-
-If you are using Maven, execute:
-
 `mvn package && java -jar target/ted-0.0.1-SNAPSHOT.jar`
 
 ## REST Endpoints
