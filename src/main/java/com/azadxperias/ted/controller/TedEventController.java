@@ -22,8 +22,7 @@ public class TedEventController {
 
     @GetMapping("/all")
     public List<TedEvent> findAll() {
-        //Long pages = tedEventRepository.count() % 100;
-        Integer[] ids = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+        Integer[] ids = {1, 2, 3, 4, 5};
         return tedEventRepository.findAllById(Arrays.asList(ids));
     }
 
@@ -32,6 +31,14 @@ public class TedEventController {
         System.out.println(tedEventRepository.count());
         PageRequest pageRequest = PageRequest.of(number, 5);
         return tedEventRepository.findAll(pageRequest);
+    }
+
+    @GetMapping("/page")
+    public Page<TedEvent> findAllByEvents(@RequestParam(value ="number") int number,
+                                          @RequestParam(value = "event") String event) {
+        System.out.println(tedEventRepository.count());
+        PageRequest pageRequest = PageRequest.of(number, 5);
+        return tedEventRepository.findByEvent(event, pageRequest);
     }
 
 }
