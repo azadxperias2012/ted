@@ -5,6 +5,7 @@ import com.azadxperias.ted.repository.TedEventRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.web.bind.annotation.*;
 
 import javax.websocket.server.PathParam;
@@ -27,17 +28,27 @@ public class TedEventController {
     }
 
     @GetMapping("/page/{number}")
-    public Page<TedEvent> findAllByPage(@PathVariable("number") int number) {
-        System.out.println(tedEventRepository.count());
-        PageRequest pageRequest = PageRequest.of(number, 5);
+    public Page<TedEvent> findAllByPage(@PathVariable("number") int number,
+                                        @RequestParam(value ="sortBy", defaultValue = "views") String sortBy,
+                                        @RequestParam(value ="sortOrder", defaultValue = "0") int sortOrder) {
+        Sort.Direction direction = Sort.Direction.ASC;
+        if (sortOrder != 0) {
+            direction = Sort.Direction.DESC;
+        }
+        PageRequest pageRequest = PageRequest.of(number, 10, direction, sortBy, "id");
         return tedEventRepository.findAll(pageRequest);
     }
 
     @GetMapping("/page")
     public Page<TedEvent> findAllByEvents(@RequestParam(value ="number") int number,
-                                          @RequestParam(value = "event") String event) {
-        System.out.println(tedEventRepository.count());
-        PageRequest pageRequest = PageRequest.of(number, 5);
+                                          @RequestParam(value = "event") String event,
+                                          @RequestParam(value ="sortBy", defaultValue = "views") String sortBy,
+                                          @RequestParam(value ="sortOrder", defaultValue = "0") int sortOrder) {
+        Sort.Direction direction = Sort.Direction.ASC;
+        if (sortOrder != 0) {
+            direction = Sort.Direction.DESC;
+        }
+        PageRequest pageRequest = PageRequest.of(number, 10, direction, sortBy, "id");
         return tedEventRepository.findByEvent(event, pageRequest);
     }
 
