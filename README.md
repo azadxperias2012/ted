@@ -4,7 +4,9 @@ This project was generated with [Spring Initializer](https://start.spring.io/) w
 
 ## Build and Run the application
 
-To run the application, execute:
+- Place the **TED-22kData.csv** file in the ted directory.
+- The file will be read for loading the data from csv to in-memory h2 database.
+- To run the application, execute the following maven command:
 
 `mvn package && java -jar target/ted-0.0.1-SNAPSHOT.jar`
 
